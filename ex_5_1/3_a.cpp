@@ -81,7 +81,7 @@ void bit_sort(int ln)
 
 int main()
 {
-    const int ln = 8 * 1024 * 1024;
+    const int ln = 20;
     randomFile(ln);
 
     time_t start, end;

@@ -4,16 +4,13 @@
 using namespace std;
 
 int main() {
-    unsigned char x=255;
+    unsigned char x=32;
     unsigned char maska = 1;
-    x = x & (~ (maska<<4));
-    cout << +x;
-    cout << endl;
-
-    x = 0;
-    x = x | (maska << 6);
-
-    cout << +x;
+    cout << "Исходное число: " << +x << endl;
+    x = x | (maska<<6);
+    cout << "Полученное число с 1 в 7-м бите: " << +x;
 
     return 0;
 }
+
+

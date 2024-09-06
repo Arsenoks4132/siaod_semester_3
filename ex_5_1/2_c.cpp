@@ -17,7 +17,6 @@ int main() {
         cin >> num;
         bit_arr[(7 - num / 8)] = bit_arr[(7 - num / 8)] | (bit_one << (num % 8));
     }
-
     cout << endl;
     cout << "Отсортированный список:";
     for (int i = 0; i < 64; ++i) {
@@ -25,7 +24,8 @@ int main() {
             cout << " " << i;
         }
     }
-
-
     return 0;
 }
+
+
+
