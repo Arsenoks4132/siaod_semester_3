@@ -72,7 +72,7 @@ void generate_file(string fname, int cnt)
     temp.close();
 }
 
-void show_file(string fname)
+void show_file(char *fname)
 {
     fstream file;
     file.open(fname, ios::binary | ios::in);
@@ -118,21 +118,21 @@ int bin_search(char *fname, int code)
 
     sort(tb.begin(), tb.end(), compare_tables);
 
-    if (tb.size() % 2 == 0)
+    
+    if (tb.size() % 2 != 0)
     {
         tb.insert(tb.begin(), new table(-1, 0));
     }
 
+    tb.insert(tb.begin(), new table(-1, 0));
+
     int m = ceil(tb.size() / 2.0);
     int q = floor(tb.size() / 2.0);
-
-    table *found = nullptr;
 
     while (q > 0)
     {
         if (tb[m]->code == code)
         {
-            found = tb[m];
             break;
         }
 
@@ -147,16 +147,38 @@ int bin_search(char *fname, int code)
         q = floor(q / 2.0);
     }
 
-    if (found)
+    if (tb[m]->code == code)
     {
-        x = new product();
-        FILE *file = fopen(fname, "rb");
-        fseek(file, sizeof(product) * found->offset, SEEK_SET);
-        fread(x, sizeof(product), 1, file);
-        cout << x->name << endl;
-        return found->offset;
+        return tb[m]->offset;
     }
     return -1;
+}
+
+product *read_record(char *fname, int offset)
+{
+    product *x = new product();
+    FILE *file = fopen(fname, "rb");
+    fseek(file, sizeof(product) * offset, SEEK_SET);
+    fread(x, sizeof(product), 1, file);
+    fclose(file);
+    return x;
+}
+
+// Функция проверки корректности поиска
+void show_file_with_test(char *fname)
+{
+    fstream file;
+    file.open(fname, ios::binary | ios::in);
+    product *x = new product();
+    while (file.read((char *)x, sizeof(product)))
+    {
+        if (read_record(fname, bin_search(fname, x->code))->code != x->code)
+        {
+            cout << "--- ";
+        }
+        cout << x->code << " " << x->name << endl;
+    }
+    file.close();
 }
 
 int main()
@@ -172,6 +194,10 @@ int main()
     auto begin = chrono::high_resolution_clock::now();
     int offset = bin_search(fname, code);
     auto end = chrono::high_resolution_clock::now();
+
+    product *x = read_record(fname, offset);
+
+    cout << "Найденная запись: " << x->code << " " << x->name << endl;
 
     cout << endl;
     cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "мс" << endl;
