@@ -70,6 +70,7 @@ void generate_file(string fname, int cnt)
     // sort(for_sort.begin(), for_sort.end(), compare_products);
     file.close();
     temp.close();
+    delete x;
 }
 
 void show_file(char *fname)
@@ -82,22 +83,28 @@ void show_file(char *fname)
         cout << x->code << " " << x->name << endl;
     }
     file.close();
+    delete x;
 }
 
-void linear_search(string fname, int code)
+int linear_search(string fname, int code)
 {
     fstream file;
     file.open(fname, ios::binary | ios::in);
     product *x = new product();
+    int i = 0;
     while (file.read((char *)x, sizeof(product)))
     {
         if (x->code == code)
         {
-            cout << x->code << " " << x->name << endl;
-            break;
+            file.close();
+            delete x;
+            return i;
         }
+        ++i;
     }
     file.close();
+    delete x;
+    return -1;
 }
 
 int bin_search(char *fname, int code)
@@ -115,6 +122,7 @@ int bin_search(char *fname, int code)
         ++i;
     }
     rd.close();
+    delete x;
 
     sort(tb.begin(), tb.end(), compare_tables);
 
@@ -179,12 +187,13 @@ void show_file_with_test(char *fname)
         cout << x->code << " " << x->name << endl;
     }
     file.close();
+    delete x;
 }
 
 int main()
 {
     char *fname{"test.bin"};
-    generate_file(fname, 10);
+    generate_file(fname, 15);
     show_file(fname);
 
     cout << "Введите код для поиска: ";
@@ -201,5 +210,6 @@ int main()
 
     cout << endl;
     cout << chrono::duration_cast<chrono::milliseconds>(end - begin).count() << "мс" << endl;
+    delete x;
     return 0;
 }
