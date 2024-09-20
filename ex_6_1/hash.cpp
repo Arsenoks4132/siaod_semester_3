@@ -26,25 +26,25 @@ dict::dict()
     delete x;
 }
 
-int dict::format(string code)
+int dict::format(string code, int dl)
 {
     int cd = 0;
     for (int i = 0; i < code.length(); ++i)
     {
         cd += code[i];
     }
-    return cd % this->values.size();
+    return cd % dl;
 }
 
 void dict::insert(unispec *el)
 {
-    int code = this->format(el->code);
+    int code = this->format(el->code, this->values.size());
 
     int i = 0;
     int ind = code;
     while (true)
     {
-        if (ind + 7 * i > this->values.size())
+        if (ind + 7 * i > this->values.size() - 1)
         {
             this->rehash();
             continue;
@@ -66,7 +66,7 @@ void dict::insert(unispec *el)
 
 void dict::del(string code)
 {
-    int ind = this->format(code);
+    int ind = this->format(code, this->values.size());
     for (int i = ind; i < this->values.size(); i += 7)
     {
         if (this->values[i]->code == code)
@@ -81,7 +81,7 @@ void dict::del(string code)
 
 unispec *dict::find(string code)
 {
-    int ind = this->format(code);
+    int ind = this->format(code, this->values.size());
     for (int i = ind; i < this->values.size(); i += 7)
     {
         if (this->values[i]->code == code)
@@ -105,6 +105,26 @@ void dict::show()
 
 void dict::rehash()
 {
-    vector<unispec *> v{this->values.size() * 2, nullptr};
-    
+    bool rehashed = false;
+    vector<unispec *> v;
+    for (int i = 2; !rehashed ; i *= 2)
+    {
+        v.resize(0);
+        v.resize(this->values.size() * i, nullptr);
+        rehashed = true;
+        for (auto x : this->values)
+        {
+            if (x)
+            {
+                int code = this->format(x->code, v.size());
+                if (code > v.size() - 1)
+                {
+                    rehashed = false;
+                    break;
+                }
+                v[code] = x;
+            }
+        }
+    }
+    this->values = v;
 }

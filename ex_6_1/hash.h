@@ -20,7 +20,7 @@ public:
     void del(std::string code);
     unispec *find(std::string code);
     void show();
-    int format(std::string code);
+    int format(std::string code, int dl);
     void rehash();
 };
 
