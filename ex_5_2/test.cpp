@@ -10,7 +10,7 @@ struct product
     char name[50];
 };
 
-int main()
-{
-    cout << sizeof(product) << endl;
-}
+// int main()
+// {
+//     cout << sizeof(product) << endl;
+// }
