@@ -4,27 +4,13 @@
 
 using namespace std;
 
-struct tst
+struct product
 {
     int code;
-    string name;
+    char name[50];
 };
 
-int main()
-{
-    tst x;
-    x.code = 123;
-    x.name = "mask";
-
-    fstream tab("test.dat", ios::binary | ios::out | ios::trunc);
-    tab.write((char *) &x, sizeof(tst));
-    
-    tab.close();
-
-    fstream rd("test.dat", ios::binary | ios::in);
-
-    tst *y = new tst();
-    rd.read((char *) y, sizeof(tst));
-    cout << y->code << " " << y->name;
-    rd.close();
-}
+// int main()
+// {
+//     cout << sizeof(product) << endl;
+// }
