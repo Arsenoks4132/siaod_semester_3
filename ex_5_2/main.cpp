@@ -184,7 +184,7 @@ void show_file_with_test(char *fname)
 int main()
 {
     char *fname{"test.bin"};
-    generate_file(fname, 10);
+    generate_file(fname, 100);
     show_file(fname);
 
     cout << "Введите код для поиска: ";
