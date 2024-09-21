@@ -51,9 +51,17 @@ void dict::insert(unispec *el)
         }
         if (this->values[ind + 7 * i])
         {
+            if (this->values[ind + 7 * i]->code == el->code)
+            {
+                this->values[ind + 7 * i]->name = el->name;
+                this->count += 1;
+                delete el;
+                break;
+            }
             ++i;
             continue;
         }
+
         this->values[ind + 7 * i] = el;
         this->count += 1;
         break;
@@ -107,7 +115,7 @@ void dict::rehash()
 {
     bool rehashed = false;
     vector<unispec *> v;
-    for (int i = 2; !rehashed ; i *= 2)
+    for (int i = 2; !rehashed; i *= 2)
     {
         v.resize(0);
         v.resize(this->values.size() * i, nullptr);
