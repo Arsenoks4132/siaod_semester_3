@@ -100,17 +100,6 @@ unispec *dict::find(string code)
     return nullptr;
 }
 
-void dict::show()
-{
-    for (auto x : this->values)
-    {
-        if (x)
-        {
-            cout << x->code << " " << x->name << '\n';
-        }
-    }
-}
-
 void dict::rehash()
 {
     bool rehashed = false;
@@ -135,4 +124,15 @@ void dict::rehash()
         }
     }
     this->values = v;
+}
+
+void dict::show()
+{
+    for (auto x : this->values)
+    {
+        if (x)
+        {
+            cout << x->code << " " << x->name << '\n';
+        }
+    }
 }
