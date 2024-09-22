@@ -96,6 +96,35 @@ int kmp_search(string s, string find)
     return -1;
 }
 
+int kmp_search(string s, string find)
+{
+    int x = 0;
+    int ln = find.length();
+    s = find + "@" + s;
+    int n = s.length();
+    vector<int> p(n, 0);
+    for (int i = 1; i < n; ++i)
+    {
+        int cur = p[i - 1];
+        while (s[i] != s[cur] && cur > 0)
+        {
+            ++x;
+            cur = p[cur - 1];
+        }
+        if (s[i] == s[cur])
+        {
+            ++x;
+            p[i] = cur + 1;
+        }
+        if (p[i] == ln)
+        {
+            ++x;
+            return x;
+        }
+    }
+    return x;
+}
+
 void show(vector<int> v)
 {
     cout << "[ ";
@@ -121,14 +150,14 @@ int main()
     //      << "Обработанный текст: " << endl
     //      << ne << endl;
 
-    string ne_text = "have a nice day, sir, i have to go with my hands";
+    string ne_text = "xqjznbvwmotysgflraucpkehdi";
 
     cout << endl
          << "Исходный текст:" << endl
-         << ne_text << endl
-         << "Префиксная функция:" << endl;
-    auto v = prefix_function(ne_text);
-    show(v);
+         << ne_text.length() << endl
+         << ":" << endl;
+    // auto v = prefix_function(ne_text);
+    // show(v);
 
     // cout << kmp_search("i want to eat", "eat");
 
