@@ -80,6 +80,7 @@ int main()
         {
             cout << "Введите искомое значение: ";
             cin >> x;
+            cout << endl;
             cout << "Длина пути от корня до значения: " << tree->find_length(x);
             cout << endl;
         }
