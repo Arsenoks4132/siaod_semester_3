@@ -54,12 +54,11 @@ void build_graph(vector<vector<int>> &graph)
             }
         }
     }
-
-    for (int i = 0; i < n; ++i)
+    for (int k = 0; k < n; ++k)
     {
-        for (int j = 0; j < n; ++j)
+        for (int i = 0; i < n; ++i)
         {
-            for (int k = 0; k < n; ++k)
+            for (int j = 0; j < n; ++j)
             {
                 if (graph[i][k] + graph[k][j] < graph[i][j])
                 {
