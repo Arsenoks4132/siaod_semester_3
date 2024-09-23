@@ -110,7 +110,7 @@ void show_graph(vector<vector<int>> &graph)
 int main()
 {
     vector<vector<int>> graph;
-    int n;
+    int n, i, j, s;
     while (true)
     {
         int choise;
@@ -128,11 +128,11 @@ int main()
             cin >> n;
             graph = enter_graph(n);
             cout << endl
-                 << "Граф считан.\n\n";
+                 << "Граф считан:\n\n";
         }
         else if (choise == 2)
         {
-            cout << "Граф считан из файла.\n\n";
+            cout << "Граф считан из файла:\n\n";
             graph = read_graph();
         }
         else if (choise == 0)
@@ -145,10 +145,25 @@ int main()
             cout << endl;
             continue;
         }
+
+        show_graph(graph);
+        cout << endl;
+        cout << "Введите номера начального и конечного узлов: ";
+        cin >> i >> j;
         cout << "Матрица кратчайших путей:\n\n";
         build_graph(graph);
         show_graph(graph);
-        break;
+        s = graph[i][j];
+        cout << endl;
+        if (s == 999)
+        {
+            cout << "Между этими узлами нет соединения." << endl;
+        }
+        else
+        {
+            cout << "Расстояние между " << i << " и " << j << ": " << s;
+        }
+        cout << endl;
     }
     return 0;
 }
