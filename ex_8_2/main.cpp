@@ -100,8 +100,8 @@ vector<vector<int>> gen_random_vector(int n, int m)
 
 int main()
 {
-    const int n = 10;
-    const int m = 14;
+    const int n = 6;
+    const int m = 8;
     vector<vector<int>> arr = gen_random_vector(n, m);
     cout << "Исходная матрица:\n";
     show(arr);
