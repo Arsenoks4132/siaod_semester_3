@@ -193,11 +193,7 @@ void show_file_with_test(char *fname)
 int main()
 {
     char *fname{"test.bin"};
-<<<<<<< HEAD
-    generate_file(fname, 100);
-=======
     generate_file(fname, 15);
->>>>>>> 94d8d0d50473dc8e11d36ffd0e7a9409c2a611d5
     show_file(fname);
 
     cout << "Введите код для поиска: ";
