@@ -47,6 +47,8 @@ void dict::insert(unispec *el)
         if (ind + 7 * i > this->values.size() - 1)
         {
             this->rehash();
+            code = this->format(el->code, this->values.size());
+            ind = code;
             continue;
         }
         if (this->values[ind + 7 * i])
